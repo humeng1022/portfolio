@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img">
+  <defs>
+    <pattern id="mori-halftone" width="10" height="10" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="#151619" opacity=".28"/>
+    </pattern>
+    <linearGradient id="mori-photo" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2f3136"/>
+      <stop offset="1" stop-color="#151619"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="800" fill="#e9e2d4"/>
+  <rect width="1200" height="800" fill="url(#mori-halftone)" opacity=".35"/>
+
+  <circle cx="966" cy="236" r="152" fill="#ff5c35"/>
+  <circle cx="966" cy="236" r="152" fill="none" stroke="#151619" stroke-opacity=".25"/>
+
+  <text x="74" y="690" font-family="Georgia, 'Times New Roman', serif" font-size="560" fill="#151619" opacity=".96">M</text>
+
+  <g stroke="#151619" stroke-opacity=".5">
+    <path d="M70 112h1060M70 694h1060"/>
+  </g>
+
+  <g font-family="ui-monospace, Consolas, monospace" fill="#151619" font-size="13" letter-spacing="3">
+    <text x="72" y="82">MORI / QUARTERLY</text>
+    <text x="1128" y="82" text-anchor="end">ISSUE 04 — 2024</text>
+    <text x="72" y="736">READ SLOWLY, LOOK LONGER.</text>
+    <text x="1128" y="736" text-anchor="end">P. 027</text>
+  </g>
+
+  <g transform="translate(760 300)">
+    <rect width="330" height="220" fill="url(#mori-photo)"/>
+    <path d="M0 220L96 118l74 62 58-88 102 128z" fill="#e9e2d4" opacity=".16"/>
+    <circle cx="250" cy="66" r="26" fill="#ff5c35" opacity=".9"/>
+    <rect x="18" y="18" width="294" height="184" fill="none" stroke="#e9e2d4" stroke-opacity=".2"/>
+  </g>
+
+  <g fill="#151619" opacity=".55">
+    <rect x="760" y="556" width="240" height="9" rx="2"/>
+    <rect x="760" y="580" width="300" height="7" rx="2"/>
+    <rect x="760" y="600" width="270" height="7" rx="2"/>
+    <rect x="760" y="620" width="286" height="7" rx="2"/>
+    <rect x="760" y="640" width="190" height="7" rx="2"/>
+  </g>
+
+  <g fill="#151619" opacity=".32">
+    <rect x="480" y="330" width="190" height="7" rx="2"/>
+    <rect x="480" y="350" width="160" height="7" rx="2"/>
+    <rect x="480" y="370" width="178" height="7" rx="2"/>
+    <rect x="480" y="390" width="120" height="7" rx="2"/>
+  </g>
+
+  <rect x="24" y="24" width="1152" height="752" fill="none" stroke="#151619" stroke-opacity=".35"/>
+</svg>

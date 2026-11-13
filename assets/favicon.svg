@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" fill="#0a0b0d"/>
+  <rect x="6" y="6" width="52" height="52" fill="none" stroke="#ff5c35" stroke-width="1.5"/>
+  <rect x="12" y="12" width="40" height="40" fill="none" stroke="#f2efe7" stroke-opacity=".22"/>
+  <text x="32" y="40" font-family="Consolas, monospace" font-size="19" fill="#ff5c35" text-anchor="middle" letter-spacing="1">CM</text>
+</svg>

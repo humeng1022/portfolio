@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img">
+  <defs>
+    <radialGradient id="pulse-glow" cx="72%" cy="56%" r="55%">
+      <stop offset="0" stop-color="#ff5c35" stop-opacity=".2"/>
+      <stop offset="1" stop-color="#0f1113" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="pulse-line" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ff5c35" stop-opacity="0"/>
+      <stop offset=".18" stop-color="#ff5c35" stop-opacity=".95"/>
+      <stop offset=".82" stop-color="#ff5c35" stop-opacity=".95"/>
+      <stop offset="1" stop-color="#ff5c35" stop-opacity="0"/>
+    </linearGradient>
+    <pattern id="pulse-grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M60 0H0v60" fill="none" stroke="#f2efe7" stroke-opacity=".07"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="800" fill="#0f1113"/>
+  <rect width="1200" height="800" fill="url(#pulse-grid)"/>
+  <rect width="1200" height="800" fill="url(#pulse-glow)"/>
+
+  <g stroke="#f2efe7" stroke-opacity=".08">
+    <path d="M0 240h1200M0 400h1200M0 560h1200M200 0v800M400 0v800M600 0v800M800 0v800M1000 0v800"/>
+  </g>
+
+  <path d="M0 430h110l26-52 30 148 34-212 28 166 26-50h96l22-34 22 34h112l24-26 22 26h96l34-58 28 58h126l22-40 24 40h90"
+        fill="none" stroke="url(#pulse-line)" stroke-width="3" stroke-linejoin="round"/>
+
+  <g stroke="#f2efe7" stroke-opacity=".18" fill="none">
+    <path d="M0 500h1200"/>
+    <path d="M0 360h1200" stroke-dasharray="4 12"/>
+  </g>
+
+  <g transform="translate(920 360)">
+    <circle r="138" fill="none" stroke="#f2efe7" stroke-opacity=".12"/>
+    <circle r="100" fill="none" stroke="#f2efe7" stroke-opacity=".18" stroke-dasharray="2 10"/>
+    <circle r="62" fill="none" stroke="#ff5c35" stroke-opacity=".55"/>
+    <path d="M0-138V-156M138 0h18M0 138v18M-138 0h-18" stroke="#f2efe7" stroke-opacity=".25"/>
+    <path d="M0 0L74-70" stroke="#ff5c35" stroke-width="2"/>
+    <circle r="7" fill="#ff5c35"/>
+    <circle cx="74" cy="-70" r="5" fill="#f2efe7"/>
+  </g>
+
+  <g>
+    <rect x="90" y="590" width="34" height="82" rx="3" fill="#f2efe7" opacity=".08"/>
+    <rect x="140" y="550" width="34" height="122" rx="3" fill="#f2efe7" opacity=".12"/>
+    <rect x="190" y="610" width="34" height="62" rx="3" fill="#f2efe7" opacity=".08"/>
+    <rect x="240" y="522" width="34" height="150" rx="3" fill="#ff5c35" opacity=".55"/>
+    <rect x="290" y="570" width="34" height="102" rx="3" fill="#f2efe7" opacity=".1"/>
+  </g>
+
+  <g fill="#ff5c35">
+    <circle cx="446" cy="430" r="5"/>
+    <circle cx="672" cy="430" r="5"/>
+    <circle cx="1008" cy="430" r="5"/>
+  </g>
+  <g stroke="#ff5c35" stroke-opacity=".35" stroke-dasharray="3 7">
+    <path d="M446 430v-70M672 430v-70M1008 430v-70"/>
+  </g>
+
+  <g font-family="ui-monospace, Consolas, monospace" fill="#f2efe7" opacity=".4" font-size="12" letter-spacing="2">
+    <text x="72" y="96">INCIDENT / 2049</text>
+    <text x="1128" y="730" text-anchor="end">P95 780ms</text>
+  </g>
+
+  <rect x="24" y="24" width="1152" height="752" fill="none" stroke="#f2efe7" stroke-opacity=".12"/>
+</svg>

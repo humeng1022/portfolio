@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img">
+  <defs>
+    <radialGradient id="atlas-glow" cx="50%" cy="42%" r="62%">
+      <stop offset="0" stop-color="#ff5c35" stop-opacity=".16"/>
+      <stop offset="1" stop-color="#0f1113" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="atlas-grid" width="52" height="30" patternUnits="userSpaceOnUse">
+      <path d="M0 15L26 0l26 15-26 15z" fill="none" stroke="#f2efe7" stroke-opacity=".06"/>
+    </pattern>
+    <g id="atlas-cube">
+      <path d="M0 0L80 40 0 80-80 40z" fill="#25282d"/>
+      <path d="M-80 40v46L0 132V80z" fill="#171a1d"/>
+      <path d="M80 40v46L0 132V80z" fill="#1d2024"/>
+      <path d="M0 0L80 40 0 80-80 40z" fill="none" stroke="#f2efe7" stroke-opacity=".14"/>
+    </g>
+    <g id="atlas-cube-accent">
+      <path d="M0 0L80 40 0 80-80 40z" fill="#ff5c35"/>
+      <path d="M-80 40v46L0 132V80z" fill="#c93d1c"/>
+      <path d="M80 40v46L0 132V80z" fill="#e64a26"/>
+    </g>
+  </defs>
+
+  <rect width="1200" height="800" fill="#0f1113"/>
+  <rect width="1200" height="800" fill="url(#atlas-grid)"/>
+  <rect width="1200" height="800" fill="url(#atlas-glow)"/>
+
+  <g stroke="#ff5c35" stroke-opacity=".35" stroke-dasharray="4 8">
+    <path d="M600 236v90M520 312l-84 42M680 312l84 42M436 354v92M764 354v92"/>
+    <path d="M520 490l-84 42M680 490l84 42"/>
+  </g>
+
+  <g transform="translate(600 246)"><use href="#atlas-cube"/></g>
+  <g transform="translate(436 354)"><use href="#atlas-cube-accent"/></g>
+  <g transform="translate(764 354)"><use href="#atlas-cube"/></g>
+  <g transform="translate(352 446)"><use href="#atlas-cube"/></g>
+  <g transform="translate(848 446)"><use href="#atlas-cube"/></g>
+  <g transform="translate(600 446)"><use href="#atlas-cube"/></g>
+
+  <g transform="translate(352 602)">
+    <rect x="-62" y="-17" width="124" height="34" rx="17" fill="#0f1113" stroke="#f2efe7" stroke-opacity=".22"/>
+    <text y="4" font-family="ui-monospace, Consolas, monospace" font-size="10" fill="#f2efe7" opacity=".7" text-anchor="middle" letter-spacing="2">COLOR</text>
+  </g>
+  <g transform="translate(486 602)">
+    <rect x="-58" y="-17" width="116" height="34" rx="17" fill="#0f1113" stroke="#f2efe7" stroke-opacity=".22"/>
+    <text y="4" font-family="ui-monospace, Consolas, monospace" font-size="10" fill="#f2efe7" opacity=".7" text-anchor="middle" letter-spacing="2">TYPE</text>
+  </g>
+  <g transform="translate(618 602)">
+    <rect x="-62" y="-17" width="124" height="34" rx="17" fill="#ff5c35"/>
+    <text y="4" font-family="ui-monospace, Consolas, monospace" font-size="10" fill="#0f1113" text-anchor="middle" letter-spacing="2">SPACE</text>
+  </g>
+  <g transform="translate(756 602)">
+    <rect x="-66" y="-17" width="132" height="34" rx="17" fill="#0f1113" stroke="#f2efe7" stroke-opacity=".22"/>
+    <text y="4" font-family="ui-monospace, Consolas, monospace" font-size="10" fill="#f2efe7" opacity=".7" text-anchor="middle" letter-spacing="2">MOTION</text>
+  </g>
+
+  <g font-family="ui-monospace, Consolas, monospace" fill="#f2efe7" opacity=".4" font-size="12" letter-spacing="2">
+    <text x="72" y="96">TOKENS → COMPONENTS → PRODUCTS</text>
+    <text x="1128" y="730" text-anchor="end">7 PRODUCT LINES / 78% REUSE</text>
+  </g>
+
+  <rect x="24" y="24" width="1152" height="752" fill="none" stroke="#f2efe7" stroke-opacity=".12"/>
+</svg>

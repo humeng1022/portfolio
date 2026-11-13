@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#0a0b0d" />
+    <title>陈墨 — 全栈工程师 / 创意开发</title>
+    <meta
+      name="description"
+      content="陈墨的个人作品集：全栈工程师与创意开发者，专注 Web 体验、实时系统与 AI 产品。"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="陈墨 — 全栈工程师 / 创意开发" />
+    <meta
+      property="og:description"
+      content="把复杂系统，做成简单体验。六个项目案例，覆盖实时协作、AI 工作流与设计系统。"
+    />
+    <meta property="og:locale" content="zh_CN" />
+
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="preload"
+      href="assets/fonts/space-grotesk-latin-wght-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="assets/fonts/instrument-serif-latin-400-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="styles/main.css" />
+
+    <!--
+      依赖固定版本，全部通过 CDN 加载。
+      本地 vendor/ 目录是离线兜底副本：Vue / GSAP 加载失败时由页面脚本自动切换。
+    -->
+    <script type="importmap">
+      {
+        "imports": {
+          "vue": "https://cdn.jsdelivr.net/npm/vue@3.5.13/dist/vue.esm-browser.prod.js",
+          "vue3-sfc-loader": "https://cdn.jsdelivr.net/npm/vue3-sfc-loader@0.9.5/dist/vue3-sfc-loader.esm.js",
+          "lenis": "./runtime/lenis.js"
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <div id="boot" role="status" aria-live="polite">
+      <div class="boot__inner">
+        <span class="boot__mark" aria-hidden="true">CM</span>
+        <p class="boot__name">陈墨 / CHEN MO</p>
+        <p class="boot__sub">PORTFOLIO 2026</p>
+        <p id="boot-status" class="boot__status">正在载入作品集…</p>
+        <div class="boot__bar" aria-hidden="true"><span></span></div>
+        <p id="boot-hint" class="boot__hint">
+          首次加载会下载 Vue 运行时，之后将从浏览器缓存读取。
+        </p>
+        <p id="boot-error" class="boot__error" hidden></p>
+        <button id="boot-retry" class="boot__retry" type="button" hidden>重新载入</button>
+      </div>
+    </div>
+
+    <div id="app"></div>
+
+    <noscript>
+      <div class="noscript">
+        <div>
+          <h1>需要启用 JavaScript</h1>
+          <p>本站依赖浏览器端 JavaScript 运行，请在浏览器设置中启用后刷新页面。</p>
+        </div>
+      </div>
+    </noscript>
+
+    <!--
+      GSAP 插件使用普通 script 标签加载并手动注册（CDN 文件不是 ESM 格式）。
+      如果 CDN 不可用，下面的 bootstrap 会按顺序从 vendor/ 补齐缺失的脚本。
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+    <script>
+      if (window.gsap && window.ScrollTrigger && window.SplitText) {
+        window.gsap.registerPlugin(window.ScrollTrigger, window.SplitText)
+      }
+    </script>
+
+    <script type="module">
+      const boot = document.getElementById('boot')
+      const statusEl = document.getElementById('boot-status')
+      const hintEl = document.getElementById('boot-hint')
+      const errorEl = document.getElementById('boot-error')
+      const retryButton = document.getElementById('boot-retry')
+      const CDN_RUNTIME_TIMEOUT = 4500
+
+      const ROUTES = {
+        '/': './app.vue'
+      }
+
+      // 用原生 ESM 预加载 Lenis：SFC loader 会把组件内的动态 import 当作
+      // 自身模块来 fetch，导致 import map 中的裸模块名 404。
+      window.__portfolioLenisReady = import('lenis')
+        .then((module) => module.default ?? null)
+        .catch((error) => {
+          console.warn('[portfolio] Lenis 不可用，使用原生滚动。', error)
+          return null
+        })
+
+      function setStatus(text) {
+        if (statusEl) statusEl.textContent = text
+      }
+
+      function showError(error) {
+        console.error('[portfolio] 启动失败', error)
+        setStatus('载入失败')
+        if (hintEl) hintEl.hidden = true
+        if (errorEl) {
+          errorEl.hidden = false
+          errorEl.textContent =
+            '无法载入作品集：' +
+            (error?.message || String(error)) +
+            '。请确认通过 HTTP 服务访问（不能直接双击 file://），并检查网络或本地 vendor/ 目录。'
+        }
+        if (retryButton) retryButton.hidden = false
+        boot?.classList.remove('is-done')
+      }
+
+      retryButton?.addEventListener('click', () => window.location.reload())
+
+      const slowTimer = window.setTimeout(() => {
+        if (boot && !boot.classList.contains('is-done')) {
+          if (hintEl) {
+            hintEl.textContent = '仍在加载。若长时间无响应，请检查网络，或确认本地 vendor/ 目录完整。'
+          }
+        }
+      }, 7000)
+
+      function withTimeout(promise, milliseconds, message) {
+        let timer = 0
+        const timeout = new Promise((_, reject) => {
+          timer = window.setTimeout(() => reject(new Error(message)), milliseconds)
+        })
+        return Promise.race([promise, timeout]).finally(() => window.clearTimeout(timer))
+      }
+
+      function loadScript(src, timeout = 10000) {
+        return new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+          script.src = src
+          script.async = false
+          script.dataset.dynamicSrc = src
+
+          const timer = window.setTimeout(() => {
+            script.remove()
+            reject(new Error('脚本加载超时：' + src))
+          }, timeout)
+
+          script.onload = () => {
+            window.clearTimeout(timer)
+            resolve()
+          }
+          script.onerror = () => {
+            window.clearTimeout(timer)
+            script.remove()
+            reject(new Error('脚本加载失败：' + src))
+          }
+
+          document.head.appendChild(script)
+        })
+      }
+
+      async function ensureGsap() {
+        if (!window.gsap) {
+          setStatus('正在载入动画引擎…')
+          try {
+            await loadScript('./vendor/gsap.min.js')
+          } catch (error) {
+            console.warn('[portfolio] GSAP 核心脚本不可用，动画将降级。', error)
+            return null
+          }
+        }
+
+        if (!window.ScrollTrigger) {
+          try {
+            await loadScript('./vendor/ScrollTrigger.min.js')
+          } catch (error) {
+            console.warn('[portfolio] ScrollTrigger 不可用。', error)
+          }
+        }
+
+        if (!window.SplitText) {
+          try {
+            await loadScript('./vendor/SplitText.min.js')
+          } catch (error) {
+            console.warn('[portfolio] SplitText 不可用，标题将静态显示。', error)
+          }
+        }
+
+        if (window.gsap) {
+          const plugins = [window.ScrollTrigger, window.SplitText].filter(Boolean)
+          if (plugins.length) window.gsap.registerPlugin(...plugins)
+        }
+
+        return window.gsap || null
+      }
+
+      async function loadRuntime() {
+        setStatus('正在载入 Vue 运行时…')
+        try {
+          const [vue, loader] = await withTimeout(
+            Promise.all([import('vue'), import('vue3-sfc-loader')]),
+            CDN_RUNTIME_TIMEOUT,
+            'CDN 运行时加载超时'
+          )
+          return { vue, loader }
+        } catch (error) {
+          console.warn('[portfolio] CDN 运行时不可用，切换到本地 vendor/ 副本。', error)
+          setStatus('正在载入本地运行时…')
+          const [vue, loader] = await Promise.all([
+            import('./vendor/vue.esm-browser.prod.js'),
+            import('./vendor/vue3-sfc-loader.esm.js')
+          ])
+          return { vue, loader }
+        }
+      }
+
+      async function start() {
+        setStatus('正在准备页面…')
+        const [runtime] = await Promise.all([loadRuntime(), ensureGsap()])
+        const { vue, loader } = runtime
+        const { createApp } = vue
+        const { loadModule } = loader
+
+        const options = {
+          moduleCache: { vue },
+          async getFile(url) {
+            const response = await fetch(url)
+            if (!response.ok) throw new Error(`无法加载 ${url}（HTTP ${response.status}）`)
+            return response.text()
+          },
+          addStyle(textContent) {
+            const style = document.createElement('style')
+            style.textContent = textContent
+            document.head.appendChild(style)
+          }
+        }
+
+        setStatus('正在编译组件…')
+        const path = window.location.pathname.replace(/\/index\.html$/, '/')
+        const entry = ROUTES[path] ?? ROUTES['/']
+
+        // 数据文件用原生 ESM 加载：vue3-sfc-loader 会把组件内导入的 .js 当作
+        // 普通脚本解析，导致 ESM 的 export 报错。原生导入后通过 provide 注入。
+        const [App, siteData, projectData] = await Promise.all([
+          loadModule(entry, options),
+          import('./data/site.js'),
+          import('./data/projects.js')
+        ])
+
+        const app = createApp(App)
+        app.provide('site', siteData)
+        app.provide('projects', projectData.projects ?? projectData.default)
+        app.config.errorHandler = (error, instance, info) => {
+          console.error('[portfolio] 运行时错误', error, info)
+        }
+        app.mount('#app')
+        document.getElementById('app')?.setAttribute('data-ready', 'true')
+
+        window.clearTimeout(slowTimer)
+        requestAnimationFrame(() => {
+          boot?.classList.add('is-done')
+          window.setTimeout(() => boot?.remove(), 700)
+        })
+      }
+
+      start().catch(showError)
+    </script>
+  </body>
+</html>
